@@ -66,37 +66,51 @@ def process_making(user_choice):
               )  # Turn off the Coffee Machine by entering “off” to the prompt
         start()
 
+def get_player_int(text):
+
+  valid_user_input = False
+  while not valid_user_input:
+    a_string = input(text)
+  
+    try:
+      user_input = int(a_string)
+
+      if user_input > 0:
+        valid_user_input = True
+      else:
+        print("You must enter a positive integer...")
+  
+    except:
+      print("I'm terribly sorry, but we require an integer...")
+ 
+  return user_input
 
 # TODO Process coins.
 def process_coins(user_choice):
     """calculate the total money and check for change or refund """
-    try:
-        quarters = float(input("Please insert quarters: ")) * 0.25
-        dime = float(input("Please insert dimes: ")) * 0.1
-        nickle = float(input("Please insert nickles: ")) * 0.05
-        penny = float(input("Please insert nickles: ")) * 0.01
-    except ValueError:
-        print("input only number")
-        process_coins(user_choice)
-    total = (quarters + dime + nickle + penny)
-    if total < 0:
-        print("negative value is not accpected")
-        process_coins(user_choice)
-    else:
-        if total == MENU[user_choice]["cost"]:
-            print(f"Enjoy your {user_choice} ☕")
-            set_profit(MENU[user_choice]['cost'])
-            choice()
-        elif total > MENU[user_choice]["cost"]:
-            charge = total - MENU[user_choice]['cost']
-            print(f"Enjoy your {user_choice} ☕")
-            print(f"Here is your change ${round(charge, 2)}")
-            set_profit(MENU[user_choice]['cost'])
-            choice()
-        else:
-            print(f"Sorry that's not enough money. Money refunded.${total}")
-            choice()
+    
+    quarters = get_player_int("Please insert quarters: ") * 0.25
+    dime = get_player_int("Please insert dimes: ") * 0.1
+    nickle = get_player_int("Please insert nickles: ") * 0.05
+    penny = get_player_int("Please insert nickles: ") * 0.01
 
+    total = (quarters + dime + nickle + penny)
+
+    if total == MENU[user_choice]["cost"]:
+        print(f"Enjoy your {user_choice} ☕")
+        set_profit(MENU[user_choice]['cost'])
+        choice()
+    elif total > MENU[user_choice]["cost"]:
+        charge = total - MENU[user_choice]['cost']
+        print(f"Enjoy your {user_choice} ☕")
+        print(f"Here is your change ${round(charge, 2)}")
+        set_profit(MENU[user_choice]['cost'])
+        choice()
+    else:
+        print(f"Sorry that's not enough money. Money refunded.${total}")
+        choice()
+
+    return None
 
 # TODO Check resources sufficient?
 def check_resources(user_choice):
