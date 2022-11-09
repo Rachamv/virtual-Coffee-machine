@@ -118,6 +118,7 @@ def check_resources(coffee):
 def start():
     """To get user choice of coffee """
     print(logo)
+    print("Here is what we offer:\nespresso:$1.5 \nlatte:$2.5 \ncappuccino:$3.0 ")
     user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
     access = ["espresso", "latte", "cappuccino", "admin"]
     if user_choice in access:
