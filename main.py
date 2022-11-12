@@ -70,7 +70,7 @@ def get_player_int(text):
     try:
       user_input = int(a_string)
 
-      if user_input > 0:
+      if user_input >= 0:
         valid_user_input = True
       else:
         print("You must enter a positive integer...")
@@ -81,27 +81,32 @@ def get_player_int(text):
 
 
 def process_coins(coffee):
-    """calculate the total money and check for change or refund """
-    
-    quarters = get_player_int("Please insert quarters: ") * 0.25
-    dime = get_player_int("Please insert dimes: ") * 0.1
-    nickle = get_player_int("Please insert nickles: ") * 0.05
-    penny = get_player_int("Please insert penny: ") * 0.01
+  """calculate the total money and check for change or refund """
+  coin_types = [ ('quarters' , 0.25),
+                 ('dimes'    , 0.10),
+                 ('nickels ' , 0.05),
+                 ('pennies'  , 0.01) ]
 
-    total = (quarters + dime + nickle + penny)
+  total = 0
+  for a_coin, a_value in coin_types:
+    total += get_player_int(f"Please insert {a_coin}: ") * a_value
 
     if total == coffee["cost"]:
         set_profit(coffee['cost'])
+        return None
     elif total > coffee["cost"]:
-        charge = total - coffee['cost']
-        print(f"Here is your change ${round(charge, 2)}")
+        change = total - coffee['cost']
+        print(f"Here is your change ${round(change, 2)}")
         set_profit(coffee['cost'])
+        return None
     else:
-        print(f"Sorry that's not enough money. Money refunded.${total}")
-        sleep(2)
-        clear()
-        choice()
-    return None
+        pass
+        
+  print(f"Sorry that's not enough money. Money refunded.${total}")
+  sleep(2)
+  clear()
+  choice()
+  return None
 
 
 def check_resources(coffee):
