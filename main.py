@@ -1,34 +1,35 @@
 """This is a virtual Coffee machine"""
 from art import logo
-from test import MENU, resources
+from data import MENU, resources
 from time import sleep
 from replit import clear
 
-#print(logo)
 
 profit = 0
 
 
 def set_profit(x):
-    """To save data on profit"""
-    global profit
-    profit = profit + x
+  """To save data on profit"""
+  global profit
+  profit = profit + x
     
 
 def choice():
-    """To get user input if they would like to get another cup of coffee"""
-    print(logo)
+  """To get user input if they would like to get another cup of coffee"""
+  print(logo)
+  while True:
     order_again = input("Would you like to order again? Y or N : ").lower()
-    if order_again == "y":
-        return start()
-    elif order_again == "admin":
-        return process_admin()
+    if order_again.lower() == "y":
+      return True
+    elif order_again.lower() == "n":
+      return False
     else:
-        print("Invalid Input") 
+        print("Invalid Input.") 
 
         
 def process_admin():
-    """This function for report and refill the coffee resources and turn off the machine."""
+  """This function for report and refill the coffee resources and turn off the machine."""
+  while True:  
     print("Welcome to the Admin panel")
     """Report on resources and profit"""
     print("Current Resources")
@@ -38,27 +39,25 @@ def process_admin():
     print(f"Money: ${round(profit, 2)}")
     check = input("What would you like to do? Homepage, refill or off: ").lower()
     if check == "homepage":
-        choice()
+      return None
     elif check == "refill":
-        resources["water"] = 300
-        resources["milk"] = 200
-        resources["coffee"] = 100
-        process_admin()
+      resources["water"] = 300
+      resources["milk"] = 200
+      resources["coffee"] = 100
     elif check == "off":
-        exit()
+      return "quit"
     else:
-        print("Invalid Input") 
-        process_admin()
+      print("Invalid Input") 
 
 
 def process_making(user_choice, coffee):
-    """Deduct the required ingredients from the resources."""
-    for item in resources:
-        resources[item] -= coffee[item]
-    print(f"Enjoy your {user_choice} ☕")
-    sleep(2)
-    clear()
-    choice()
+  """Deduct the required ingredients from the resources."""
+  for item in resources:
+    resources[item] -= coffee[item]
+  print(f"Enjoy your {user_choice} ☕")
+  sleep(2)
+  clear()
+  return None
 
 
 def get_player_int(text):
@@ -105,39 +104,55 @@ def process_coins(coffee):
   print(f"Sorry that's not enough money. Money refunded.${total}")
   sleep(2)
   clear()
-  choice()
   return None
 
 
 def check_resources(coffee):
-    """TO check if resources are sufficient."""
-    for item in resources:
-        if resources[item] >= coffee[item]:
-            return True
-        else:
-            print(f"Sorry there is not enough {item}.")
-            sleep(2)
-            clear()
-            start()
+  """TO check if resources are sufficient."""
+
+  enough_of_everything = True
+  
+  for item in resources:
+    if resources[item] < coffee[item]:
+      print(f"Sorry there is not enough {item}.")
+      enough_of_everything = False
+      
+  return enough_of_everything
             
-def start():
-    """To get user choice of coffee """
+def main():
+  """To get user choice of coffee """
+
+  while True: #main game loop
     print(logo)
-    print("Here is what we offer:\nespresso:$1.5 \nlatte:$2.5 \ncappuccino:$3.0 ")
+    print("Here is what we offer:\nespresso: $1.5 \nlatte: $2.5 \ncappuccino: $3.0 \n")
     user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
     access = ["espresso", "latte", "cappuccino", "admin"]
     if user_choice in access:
         if user_choice == "admin":
-            return process_admin()
+            if process_admin() == "quit":
+              break
+            if choice():
+              pass
+            else:
+              break #player opted to quit.
         else:
             coffee = MENU[user_choice]
             if check_resources(coffee["ingredients"]):
-                payment = process_coins(coffee)
-                if payment != 0:
-                    process_making(user_choice, coffee["ingredients"])
+              payment = process_coins(coffee)
+              if payment != 0:
+                process_making(user_choice, coffee["ingredients"])
+                if choice():
+                  pass
+                else:
+                  break #player opted to quit.
+            else:
+              sleep(2)
+              clear()
     else:
         print("Invaild input")
-        start()
 
-        
-start()
+  print("\n<   <  < Thank you for playing Coffee Machine V2.0 >  >   >\n")
+
+  return None
+if __name__ == "__main__":
+  main()
