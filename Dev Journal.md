@@ -38,7 +38,7 @@ Over all, fixed the indenting to use a single indent (not double or triple).  Th
 ---
 ## Nov 13, 2022
 ### From TopAchivers
-thank you sir for the update please can we connect on [github](https://github.com/Rachamv) also i want us to chat together about how we can turn this project into a real live project 
+thank you sir for the update please can we connect on [github](https://github.com/Rachamv) also i want us to chat together about how we can turn this project into a real life project 
 
 ---
 
@@ -109,8 +109,9 @@ True
 
 Parameter order: (MenuItem) The MenuItem object to make.
 Deducts the required ingredients from the resources.
-MoneyMachineMethods:
-Class
+
+### MoneyMachineMethods:
+### Class
 -
 ### report()
 
@@ -124,3 +125,5 @@ Parameter cost: (float) The cost of the drink.
 Returns True when payment is accepted, or False if insufficient.
 e.g. False
 -
+## Test room
+https://replit.com/@TopAchievers/VCM-version-2-test?v=1

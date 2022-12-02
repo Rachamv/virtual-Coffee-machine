@@ -151,7 +151,7 @@ def main():
     else:
         print("Invaild input")
 
-  print("\n<   <  < Thank you for playing Coffee Machine V2.0 >  >   >\n")
+  print("\n<   <  < Thank you we will be expecting you  at Coffee Machine V2.0 >  >   >\n")
 
   return None
 if __name__ == "__main__":

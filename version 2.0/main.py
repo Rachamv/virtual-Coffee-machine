@@ -1,10 +1,12 @@
 from menu import Menu
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
+from admin import Admin
 
 money_machine = MoneyMachine()
 coffee_maker = CoffeeMaker()
 menu = Menu()
+
 
 is_on = True
 
@@ -13,9 +15,8 @@ while is_on:
     choice = input(f"What would you like? ({options}): ")
     if choice == "off":
         is_on = False
-    elif choice == "report":
-        coffee_maker.report()
-        money_machine.report()
+    elif choice == "admin":
+       pass 
     else:
         drink = menu.find_drink(choice)
         

@@ -1,3 +1,5 @@
+![image](/images/coffee.png)
+
 In this version we are using OOP method to add new features 
 this version is propose for organisation that have remote workers and want to provide them with virtual coffee machine.
 * Admin = employer(features
